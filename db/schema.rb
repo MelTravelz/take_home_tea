@@ -42,11 +42,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_07_175945) do
 
   create_table "user_subscriptions", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.bigint "subscriptions_id", null: false
+    t.bigint "subscription_id", null: false
     t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["subscriptions_id"], name: "index_user_subscriptions_on_subscriptions_id"
+    t.index ["subscription_id"], name: "index_user_subscriptions_on_subscription_id"
     t.index ["user_id"], name: "index_user_subscriptions_on_user_id"
   end
 
@@ -64,6 +64,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_07_175945) do
 
   add_foreign_key "tea_type_subscriptions", "subscriptions"
   add_foreign_key "tea_type_subscriptions", "tea_types"
-  add_foreign_key "user_subscriptions", "subscriptions", column: "subscriptions_id"
+  add_foreign_key "user_subscriptions", "subscriptions"
   add_foreign_key "user_subscriptions", "users"
 end
