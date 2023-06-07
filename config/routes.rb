@@ -3,4 +3,10 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+
+  namespace :api do
+    namespace :v1 do
+      get '/users/:id/subscriptions', to: 'users/subscriptions#index'
+    end
+  end
 end
