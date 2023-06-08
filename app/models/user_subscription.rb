@@ -6,4 +6,9 @@ class UserSubscription < ApplicationRecord
 
   enum status: ["active", "cancelled"]
   enum frequency: ["monthly", "bi-monthly", "quarterly"]
+
+  # this is the concept of delegation:
+  # def title
+  #   subscription.title
+  # end
 end

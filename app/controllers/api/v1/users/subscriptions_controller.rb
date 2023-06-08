@@ -9,16 +9,12 @@ class Api::V1::Users::SubscriptionsController < ApplicationController
   end
 
   def create
-    # @new_sub = @user.user_subscriptions.new(subscription_id: params[:subscription_id], frequency: params[:frequency])
-    # return unless @new_sub.save!
-    # @new_sub.save!
-
-    @new_sub = @user.user_subscriptions.create(subscription_id: params[:subscription_id], frequency: params[:frequency])
+    @new_sub = @user.user_subscriptions.create!(subscription_id: params[:subscription_id], frequency: params[:frequency])
     render json: UserSubscriptionSerializer.new(@new_sub), status: :created
   end
 
   def update
-    @user_sub.update(frequency: params[:frequency], status: params[:status])
+    @user_sub.update(frequency: params[:frequency], status: params[:status]) 
     render json: UserSubscriptionSerializer.new(@user_sub), status: :created
   end
 
@@ -38,3 +34,12 @@ class Api::V1::Users::SubscriptionsController < ApplicationController
     end
   end
 end
+
+# Notes from instructor: 
+  # in #create only need this if there's a conditional:
+  # @new_sub = @user.user_subscriptions.new(subscription_id: params[:subscription_id], frequency: params[:frequency])
+  # return unless @new_sub.save
+
+  # in #update:
+  # @user_sub.update(params) #Do NOT Do! -> this is why we use strong params!
+  

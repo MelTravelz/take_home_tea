@@ -10,5 +10,4 @@ class User < ApplicationRecord
                         :state,
                         :zip_code
   validates_uniqueness_of :email 
-
 end
