@@ -203,41 +203,41 @@ RSpec.describe "/api/v1/users/:id/subscriptions" do
     end
 
     describe "when successful" do
-      xit "can update the frequency of a user_subscription record" do
+      it "can update the frequency of a user_subscription record" do
         #NOTE: user_4_sub has a (status: 0 => "active") & (frequency: 0 => "monthly")
         sub_params = { user_subscription_id: @user_4_sub.id, frequency: 2 } 
         headers = { 'CONTENT_TYPE' => 'application/json' }
         patch "/api/v1/users/#{@user1.id}/subscriptions", headers:, params: JSON.generate(sub_params)
 
-        # expect(response).to be_successful
-        # parsed_data = JSON.parse(response.body, symbolize_names: true)
+        expect(response).to be_successful
+        parsed_data = JSON.parse(response.body, symbolize_names: true)
       end
 
-      xit "can update the status of a user_subscription record" do
+      it "can update the status of a user_subscription record" do
         #NOTE: user_4_sub has a (status: 0 => "active") & (frequency: 0 => "monthly")
         sub_params = { user_subscription_id: @user_4_sub.id, status: 1 } 
         headers = { 'CONTENT_TYPE' => 'application/json' }
         patch "/api/v1/users/#{@user1.id}/subscriptions", headers:, params: JSON.generate(sub_params)
 
-        # expect(response).to be_successful
-        # parsed_data = JSON.parse(response.body, symbolize_names: true)
+        expect(response).to be_successful
+        parsed_data = JSON.parse(response.body, symbolize_names: true)
       end
     end
 
     describe "when NOT successful" do
-      xit "cannot update the frequency if the status is 'cancelled'" do
+      it "cannot update the frequency if the status is 'cancelled'" do
         #NOTE: user_1_sub has a (status: 1 => "cancelled") & (frequency: 0 => "monthly")
-        sub_params = { user_subscription_id: @user_1_sub.id, frequency: 2 }
+        sub_params = { user_subscription_id: @user_1_sub.id, status: 1, frequency: 2 }
         headers = { 'CONTENT_TYPE' => 'application/json' }
         patch "/api/v1/users/#{@user1.id}/subscriptions", headers:, params: JSON.generate(sub_params)
 
-        # expect(response).to be_successful
-        # parsed_data = JSON.parse(response.body, symbolize_names: true)
+        expect(response).to have_http_status(422)
+        parsed_data = JSON.parse(response.body, symbolize_names: true)
       end
 
-      xit "returns 404 when user id is invalid" do
+      it "returns 404 when user id is invalid" do
         #NOTE: user_4_sub has a (status: 0 => "active") & (frequency: 0 => "monthly")
-        sub_params = { user_subscription_id: @user_4_sub.id, status: 1 } 
+        sub_params = { user_subscription_id: @user_4_sub.id, status: 1, frequency: 0 } 
         headers = { 'CONTENT_TYPE' => 'application/json' }
         patch "/api/v1/users/0099/subscriptions", headers:, params: JSON.generate(sub_params)
 
@@ -252,28 +252,29 @@ RSpec.describe "/api/v1/users/:id/subscriptions" do
         expect(parsed_data[:errors][0][:detail]).to eq("Couldn't find User with 'id'=0099")
       end
 
-      xit "returns 422 when status enum is invalid" do
+      it "returns 422 when status enum is invalid" do
         #NOTE: user_4_sub has a (status: 0 => "active") & (frequency: 0 => "monthly")
-        sub_params = { user_subscription_id: @user_4_sub.id, status: 8 } 
+        sub_params = { user_subscription_id: @user_4_sub.id, status: 8, frequency: 0 } 
         headers = { 'CONTENT_TYPE' => 'application/json' }
         patch "/api/v1/users/#{@user1.id}/subscriptions", headers:, params: JSON.generate(sub_params)
 
-        # expect(response).to have_http_status(404)
-        # parsed_data = JSON.parse(response.body, symbolize_names: true)
+        expect(response).to have_http_status(422)
+        parsed_data = JSON.parse(response.body, symbolize_names: true)
 
         # expect(parsed_data).to be_a(Hash)
         # expect(parsed_data.keys).to eq([:errors])
         # expect(parsed_data[:errors]).to be_a(Array)
       end
 
-      xit "returns 422 when frequency enum is invalid" do
+      it "returns 422 when frequency enum is invalid" do
         #NOTE: user_4_sub has a (status: 0 => "active") & (frequency: 0 => "monthly")
-        sub_params = { user_subscription_id: @user_4_sub.id, frequency: 8 } 
+        sub_params = { user_subscription_id: @user_4_sub.id, status: 0, frequency: 8 } 
         headers = { 'CONTENT_TYPE' => 'application/json' }
         patch "/api/v1/users/#{@user1.id}/subscriptions", headers:, params: JSON.generate(sub_params)
 
-        # expect(response).to have_http_status(404)
-        # parsed_data = JSON.parse(response.body, symbolize_names: true)
+        expect(response).to have_http_status(422)
+        parsed_data = JSON.parse(response.body, symbolize_names: true)
+
         # expect(parsed_data).to be_a(Hash)
         # expect(parsed_data.keys).to eq([:errors])
         # expect(parsed_data[:errors]).to be_a(Array)
