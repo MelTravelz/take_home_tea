@@ -39,15 +39,5 @@ RSpec.describe SubscriptionPresenter do
         expect(user_sub_all_info.all_sub_info[0].keys).to eq([:user_subscription_id, :status, :frequency, :title, :price_usd])
       end
     end
-
-    describe "#get_all_info" do
-      it "combines necessary subscription & user_subscription info" do
-        expect(user_sub_all_info.get_all_info(@user)[0][:user_subscription_id]).to eq(@user_1_sub.id)
-        expect(user_sub_all_info.get_all_info(@user)[0][:status]).to eq(@user_1_sub.status)
-        expect(user_sub_all_info.get_all_info(@user)[0][:frequency]).to eq(@user_1_sub.frequency)
-        expect(user_sub_all_info.get_all_info(@user)[0][:title]).to eq(@sub3.title)
-        expect(user_sub_all_info.get_all_info(@user)[0][:price_usd]).to eq(@sub3.price_usd)
-      end
-    end
   end
 end

@@ -6,6 +6,7 @@ class SubscriptionPresenter
     @all_sub_info = get_all_info(user)
   end
 
+  private 
   def get_all_info(user)
     user.user_subscriptions.map do |sub|
       { 
