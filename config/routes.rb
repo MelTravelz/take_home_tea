@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       get '/users/:id/subscriptions', to: 'users/subscriptions#index'
+      post '/users/:id/subscriptions', to: 'users/subscriptions#create'
     end
   end
 end
