@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       get '/users/:id/subscriptions', to: 'users/subscriptions#index'
       post '/users/:id/subscriptions', to: 'users/subscriptions#create'
+      patch '/users/:id/subscriptions', to: 'users/subscriptions#update'
     end
   end
 end

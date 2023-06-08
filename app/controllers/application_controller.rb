@@ -7,6 +7,6 @@ class ApplicationController < ActionController::API
   end
 
   def handle_argument_error(exception)
-    render json: ErrorSerializer.new(exception, :unprocessable_entity).serializable_hash, status: :unprocessable_entity
+    render json: ErrorSerializer.new(exception, :unprocessable_entity).serializable_hash, status: :unprocessable_entity # 422
   end
 end
