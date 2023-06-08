@@ -233,6 +233,10 @@ RSpec.describe "/api/v1/users/:id/subscriptions" do
 
         expect(response).to have_http_status(422)
         parsed_data = JSON.parse(response.body, symbolize_names: true)
+
+        expect(parsed_data).to be_a(Hash)
+        expect(parsed_data.keys).to eq([:errors])
+        expect(parsed_data[:errors]).to eq(["Cannot update a cancelled subscription."])
       end
 
       it "returns 404 when user id is invalid" do
@@ -254,16 +258,18 @@ RSpec.describe "/api/v1/users/:id/subscriptions" do
 
       it "returns 422 when status enum is invalid" do
         #NOTE: user_4_sub has a (status: 0 => "active") & (frequency: 0 => "monthly")
-        sub_params = { user_subscription_id: @user_4_sub.id, status: 8, frequency: 0 } 
+        sub_params = { user_subscription_id: @user_4_sub.id, status: 9, frequency: 0 } 
         headers = { 'CONTENT_TYPE' => 'application/json' }
         patch "/api/v1/users/#{@user1.id}/subscriptions", headers:, params: JSON.generate(sub_params)
 
         expect(response).to have_http_status(422)
         parsed_data = JSON.parse(response.body, symbolize_names: true)
 
-        # expect(parsed_data).to be_a(Hash)
-        # expect(parsed_data.keys).to eq([:errors])
-        # expect(parsed_data[:errors]).to be_a(Array)
+        expect(parsed_data).to be_a(Hash)
+        expect(parsed_data.keys).to eq([:errors])
+        expect(parsed_data[:errors]).to be_a(Array)
+        expect(parsed_data[:errors][0].keys).to eq([:status, :title, :detail])
+        expect(parsed_data[:errors][0][:detail]).to eq("'9' is not a valid status")
       end
 
       it "returns 422 when frequency enum is invalid" do
@@ -275,9 +281,11 @@ RSpec.describe "/api/v1/users/:id/subscriptions" do
         expect(response).to have_http_status(422)
         parsed_data = JSON.parse(response.body, symbolize_names: true)
 
-        # expect(parsed_data).to be_a(Hash)
-        # expect(parsed_data.keys).to eq([:errors])
-        # expect(parsed_data[:errors]).to be_a(Array)
+        expect(parsed_data).to be_a(Hash)
+        expect(parsed_data.keys).to eq([:errors])
+        expect(parsed_data[:errors]).to be_a(Array)
+        expect(parsed_data[:errors][0].keys).to eq([:status, :title, :detail])
+        expect(parsed_data[:errors][0][:detail]).to eq("'8' is not a valid frequency")
       end
     end
   end
