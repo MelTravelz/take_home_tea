@@ -30,15 +30,16 @@ RSpec.describe "/api/v1/users/:id/subscriptions" do
     end
 
     context "when successful" do
-      let(:expected_result) do
-          {
-            user_subscription_id: @user_1_sub.id, 
-            status: @user_1_sub.status, 
-            frequency: @user_1_sub.frequency, 
-            title: @sub3.title, 
-            price_usd: @sub3.price_usd
-          }
-      end
+      # Phase 1 Using Presenter:
+      # let(:expected_result) do
+      #     {
+      #       user_subscription_id: @user_1_sub.id, 
+      #       status: @user_1_sub.status, 
+      #       frequency: @user_1_sub.frequency, 
+      #       title: @sub3.title, 
+      #       price_usd: @sub3.price_usd
+      #     }
+      # end
 
       it "returns all subcriptions for a user" do
         get "/api/v1/users/#{@user1.id}/subscriptions"
@@ -49,24 +50,32 @@ RSpec.describe "/api/v1/users/:id/subscriptions" do
         
         expect(parsed_data).to be_a(Hash)
         expect(parsed_data.keys).to eq([:data])
-        expect(parsed_data[:data].keys).to eq([:id, :type, :attributes])
-        expect(parsed_data[:data][:attributes].keys).to eq([:all_sub_info])
-
-        expect(parsed_data[:data][:attributes][:all_sub_info][0]).to include(expected_result)
+        expect(parsed_data[:data]).to be_an(Array)
+        expect(parsed_data[:data][0]).to be_a(Hash)
+        expect(parsed_data[:data][0].keys).to eq([:id, :type, :attributes])
+        expect(parsed_data[:data][0][:attributes]).to be_a(Hash)
+        expect(parsed_data[:data][0][:attributes].keys).to eq([:title, :price_usd, :status, :frequency])
+        
+        # Phase 1 Using Presenter:
+        # expect(parsed_data[:data].keys).to eq([:id, :type, :attributes])
+        # expect(parsed_data[:data][:attributes].keys).to eq([:all_sub_info])
+        # expect(parsed_data[:data][:attributes][:all_sub_info][0]).to include(expected_result)
       end
 
       it "returns an empty array if a user has no subscriptions" do
         get "/api/v1/users/#{@user2.id}/subscriptions"
 
         expect(response).to be_successful
-
         parsed_data = JSON.parse(response.body, symbolize_names: true)
 
         expect(parsed_data).to be_a(Hash)
         expect(parsed_data.keys).to eq([:data])
-        expect(parsed_data[:data].keys).to eq([:id, :type, :attributes])
-        expect(parsed_data[:data][:attributes].keys).to eq([:all_sub_info])
-        expect(parsed_data[:data][:attributes][:all_sub_info]).to eq([])
+        expect(parsed_data[:data]).to eq([])
+
+        # Phase 1 Using Presenter:
+        # expect(parsed_data[:data].keys).to eq([:id, :type, :attributes])
+        # expect(parsed_data[:data][:attributes].keys).to eq([:all_sub_info])
+        # expect(parsed_data[:data][:attributes][:all_sub_info]).to eq([])
       end
     end
 
@@ -121,8 +130,12 @@ RSpec.describe "/api/v1/users/:id/subscriptions" do
         
         expect(parsed_data).to be_a(Hash)
         expect(parsed_data.keys).to eq([:data])
-        expect(parsed_data[:data].keys).to eq([:id, :type])
+        expect(parsed_data[:data].keys).to eq([:id, :type, :attributes])
         expect(parsed_data[:data][:id]).to eq(UserSubscription.last.id.to_s)
+        expect(parsed_data[:data][:attributes].keys).to eq([:title, :price_usd, :status, :frequency])
+
+        # Phase 1 Using Presenter:
+        # expect(parsed_data[:data].keys).to eq([:id, :type])
       end
     end
 

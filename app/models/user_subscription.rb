@@ -7,8 +7,12 @@ class UserSubscription < ApplicationRecord
   enum status: ["active", "cancelled"]
   enum frequency: ["monthly", "bi-monthly", "quarterly"]
 
+  delegate :title, :price_usd, to: :subscription 
   # this is the concept of delegation:
   # def title
   #   subscription.title
+  # end
+  # def price_usd
+  #   subscription.price_usd
   # end
 end
