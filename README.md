@@ -6,6 +6,8 @@
 <div align="center">
   <img src="https://user-images.githubusercontent.com/116964982/244501735-3bec97cb-c930-4020-b2f4-b82042cb8929.png" alt="take_home_tea" width="50%">
 
+---
+
   <p align="center">
     This is a practice take home test to prepare soon-to-be-graduates from the <a href="https://turing.edu/">Turing School for Software & Design</a> for the interview process. Students are asked to spend 8 hours building out an MVP (minimum viable product) based off a short <a href="https://mod4.turing.edu/projects/take_home/take_home_be">prompt</a>. Nearly all choices are left open to interpretation.
   </p>
@@ -21,7 +23,7 @@
     <li><a href="#schema">Schema Diagram</a></li>
     <li><a href="#testing">Testing</a></li>
     <li><a href="#endpoints">Endpoints</a></li>
-    <li><a href="#contact">Who Dat?</a></li>
+    <li><a href="#contact">Contributor</a></li>
   </ol>
 
 <!-- INSPIRATION -->
@@ -98,8 +100,9 @@ Certain decisions had to be made before moving forward in the project:
 
 - Happy path, sad path, and edge case testing were considered and tested. When a request cannot be completed, an error object is returned.
 
-<div>
-    <pre>
+<details>
+  <summary><code>See Error Handling</code></summary>
+  <pre>
     <code>
 {
   "errors": [
@@ -110,8 +113,8 @@ Certain decisions had to be made before moving forward in the project:
      }
    ]
 }
-    </code></pre>
-</div>
+  </code></pre>
+</details>
 
 <br>
 
@@ -215,7 +218,14 @@ Certain decisions had to be made before moving forward in the project:
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTRIBUTOR -->
-<h2 id="contact">Who Dat?</h2>
+<h2 id="contact">Contributor</h2>
 
+| | <div align="center">[<img src="https://avatars.githubusercontent.com/u/116964982?s=400&u=697c130dc028cc3bd2b6b6441454f8ce334be32c&v=4" width="300">](https://www.linkedin.com/in/melony-erin-franchini/)</div> | |
+| ------------------ | ------------ | -------------- | 
+| | <h3 align="center">Hi! I'm Melony Erin Franchini <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOGQzYjI0ZDBjNzMzYzg4MWYyZGI4OTRjNjQyNDYxNWY3Nzc1ODEwNCZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PXM/LreyUiYrkrMieDfCcy/giphy.gif" width="40"></h3> | |
+| | I'm a Backend software engineer with an M.Ed. in Adult Learning and 7+ years as a professional educator. I bring a keen ability to learn new subject matter, break down complex concepts, and effectively communicate to diverse groups of people. My enthusiasm knows no bounds when tackling any level of complexity you throw my way! | |
+| | ✨ Connect via: [LinkedIn](https://www.linkedin.com/in/melony-erin-franchini/) | |
+| | ✨ Work with Me: [Resume](https://github.com/MelTravelz/MelTravelz/blob/main/Resume_Melony_Erin_Franchini.pdf) | |
+| | ✨ See more beautiful code: [GitHub](https://github.com/MelTravelz)| |
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
