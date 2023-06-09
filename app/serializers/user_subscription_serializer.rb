@@ -1,4 +1,5 @@
 class UserSubscriptionSerializer
   include JSONAPI::Serializer
-  # attributes :title
+  # when using delegation, only one serializer is needed and all attributes listed here:
+  # attributes :title, :price, :status, :frequency
 end
